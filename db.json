@@ -1,0 +1,24 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Shiv",
+      "email": "shiv@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Shakti",
+      "email": "shakti@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "Bharti",
+      "email": "bharti@gmail.com"
+    },
+    {
+      "id": 4,
+      "name": "Updated Rahul",
+      "email": "updated-rahul@gmail.com"
+    }
+  ]
+}

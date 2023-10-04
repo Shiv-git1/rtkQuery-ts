@@ -1,58 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import './App.css'
+import AddContact from './components/AddContact'
+import { useContactQuery, useContactsQuery } from './services/contactsApi'
 
 function App() {
+  const { data, error, isLoading, isFetching, isSuccess } = useContactsQuery()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <h1>React RTK-Query</h1>
+      {isLoading && <h2>Loading...</h2>}
+      {isFetching && <h2>Fetching...</h2>}
+      {error && <h2>Something went wrong!</h2>}
+
+      {isSuccess && (
+        <div className="parent_container">
+          {data.map((contact) => (
+            <ul key={contact.id}>
+              <li>{contact.name}</li>
+              <div className="details">
+                {' '}
+                <ContactDetail id={contact.id} />{' '}
+              </div>
+            </ul>
+          ))}
+        </div>
+      )}
+      <div>
+        {' '}
+        <AddContact />{' '}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export const ContactDetail = ({ id }: { id: number }) => {
+  const { data } = useContactQuery(id)
+
+  return (
+    <>
+      <pre>{JSON.stringify(data, undefined, 2)}</pre>
+    </>
+  )
+}
+
+export default App
